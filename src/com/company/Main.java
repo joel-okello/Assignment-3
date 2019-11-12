@@ -21,16 +21,34 @@ public class Main {
             llist.add(new MinHeap(elements_per_heap, max_value, min_value));
         }
 
+        System.out.println("Before removing any element ");
 
 
         for (int i = 0; i < llist.size(); i++) {
             MinHeap currentHeap = (MinHeap) llist.get(i);
-            System.out.println(" Heap before removing any element from the heap");
-            printContentsOfAHeap(currentHeap);
-            System.out.println(" Heap after removing the minimum element from the heap");
-            currentHeap.removeMinValue();
+
             printContentsOfAHeap(currentHeap);
         }
+
+
+
+        int removedItems = 0;
+        while(removedItems<4){
+            System.out.println(" After removing "+(int)(removedItems+1) +" element");
+            removedItems++;
+            RemoveSmallestItem(llist);
+
+            for (int i = 0; i < llist.size(); i++) {
+                MinHeap currentHeap = (MinHeap) llist.get(i);
+
+                printContentsOfAHeap(currentHeap);
+            }
+        }
+
+
+
+
+
 
 
 
@@ -55,9 +73,43 @@ public class Main {
 //            System.out.println(Arrays.toString(currentHeap.getHeap()));
 //        }
 
+    }
+
+    public static  boolean nextHeapHasElements(int heapIndex, LinkedList lList){
+        if(isLastHeap(heapIndex,lList.size())){
+            return  false;
+        }
+
+        MinHeap nextHeap = (MinHeap) lList.get(heapIndex + 1);
+
+        return nextHeap.getSize() > 0;
+    }
+
+    public static boolean isLastHeap(int heapIndex, int heapSize){
+        //index starts at zero, max index is less than size by one
+        return heapIndex >= heapSize-1;
+
+    }
+
+    public static void RemoveSmallestItem(LinkedList lList){
+        for(int cur_index=0; cur_index< lList.size(); cur_index++){
+           MinHeap currentHeap = (MinHeap) lList.get(cur_index);
+           if(nextHeapHasElements(cur_index,lList)){
+               MinHeap nextHeap = (MinHeap) lList.get(cur_index+1);
+               int nextHeapsMinValue = nextHeap.getMinValue();
+               currentHeap.replaceMinValue(nextHeapsMinValue);
+           }
+           else{
+               currentHeap.removeMinValue();
+           }
+        }
+
+    }
 
 
 
+    public static  boolean currentHeapHasElements(MinHeap currentHeap){
+        return  currentHeap.getSize() > 0;
     }
 
     public  static  void printContentsOfAHeap(MinHeap currentHeap){

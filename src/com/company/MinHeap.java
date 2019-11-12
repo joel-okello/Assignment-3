@@ -132,15 +132,19 @@ public class MinHeap {
 
     // Function to remove and return the minimum element from the heap
     public int removeMinValue(){
+
         int minValue = Heap[FRONT];
         int lastValueInHeap = Heap[size];
-        //move last value to root of heap
-        Heap[FRONT] = lastValueInHeap;
+        int indexOfLastElement = size;
+        int indexOfFirstElement = FRONT;
+        //move last value to root of heap and the root to the end of the heap
+        swap(indexOfFirstElement,indexOfLastElement);
 
         //reduce the size of the heap
         size = size - 1;
         //reorganise the heap
         minHeapify(FRONT);
+
 
         return minValue;
     }
@@ -167,6 +171,10 @@ public class MinHeap {
                         Heap,FRONT, size+1);
 
         return heapElements;
+    }
+
+    public  int getSize(){
+        return size;
     }
 
 
