@@ -59,6 +59,7 @@ public class MinHeap {
     private boolean isLeaf(int pos)
     {
         int posLeftChild = leftChild(pos);
+        System.out.print(" is leaf node "+ (posLeftChild > size) + " posLeftChild "+ posLeftChild + " pos " + pos);
         return posLeftChild > size ;
     }
 
