@@ -4,23 +4,25 @@ package com.company;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 
 public class ReadInput {
+    public static int n;
+    public static int k;
+    public static int[] heapValues;
+
 
     public static void main(String[] args) {
-        int n = 6;
-        int k = 6;
-        int max_value = n;
-        int min_value = 1;
 
-        int elements_per_heap =  k;
+        int userHeaps[][] = readValuesFromUser();
 
+        System.out.println(" Finished reading input from the user");
 
         LinkedList llist = new LinkedList();
         for (int n_heaps = 1; n_heaps <= n/k; n_heaps++) {
-            int heapElement[] = new int[0];
-            llist.add(new MinHeap(elements_per_heap, max_value, min_value,heapElement));
+            int heapElements[] = userHeaps[n_heaps-1];
+            llist.add(new MinHeap(k, n, 1,heapElements));
         }
 
 
@@ -32,22 +34,65 @@ public class ReadInput {
 
 
 
-        int removedItems = 0;
-        while(removedItems<5){
-            System.out.println(" After removing "+(int)(removedItems+1) +" element");
-            removedItems++;
-            RemoveSmallestItem(llist);
-
-            for (int i = 0; i < llist.size(); i++) {
-                MinHeap currentHeap = (MinHeap) llist.get(i);
-
-                printContentsOfAHeap(currentHeap);
-            }
-        }
+//        int removedItems = 0;
+//        while(removedItems<5){
+//            System.out.println(" After removing "+(int)(removedItems+1) +" element");
+//            removedItems++;
+//            RemoveSmallestItem(llist);
+//
+//            for (int i = 0; i < llist.size(); i++) {
+//                MinHeap currentHeap = (MinHeap) llist.get(i);
+//
+//                printContentsOfAHeap(currentHeap);
+//            }
+//        }
 
 
 
     }
+
+    public  static int[][] readValuesFromUser(){
+        Scanner input = new Scanner( System.in);
+        System.out.println("Enter value of n");
+        n  = input.nextInt();
+
+        System.out.println("Enter value of k");
+        k = input.nextInt();
+
+        // create a int array to save user input
+        int[] n_integer_values = new int[n];
+        // loop over array to save user input
+        System.out.println("Please enter array elements");
+        for (int i = 0; i < n; i++) {
+            int userInput = input.nextInt();
+            n_integer_values[i] = userInput;
+        }
+        heapValues = n_integer_values;
+
+        System.out.println("The Int array input from user is : ");
+
+        System.out.println(Arrays.toString(n_integer_values));
+        heapValues = n_integer_values;
+
+        System.out.println(Arrays.toString(heapValues));
+
+
+        return createArraysOfHeaps(n_integer_values);
+    }
+
+    public static  int[][] createArraysOfHeaps(int[] n_integer_values){
+        int index = 0;
+        int[][] arraysOfHeaps = new int[k][];
+        for( int i = 0; i < heapValues.length; i += k ){
+            System.out.print(" i "+i + " i + k "+ (int)(i + k -1));
+            arraysOfHeaps[index] = Arrays.copyOfRange( n_integer_values, i, (i+k));
+            index++;
+        }
+
+        return  arraysOfHeaps;
+
+    }
+
 
     public static  boolean nextHeapHasElements(int heapIndex, LinkedList lList){
         if(isLastHeap(heapIndex,lList.size())){
