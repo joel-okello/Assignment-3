@@ -94,6 +94,7 @@ public class MinHeap {
         }
     }
 
+
     // Function to insert a node into the heap
     public void insert(int element)
     {
@@ -114,7 +115,7 @@ public class MinHeap {
     {
         System.out.print('[');
         for (int i = 0; i <= size ; i++) {
-            System.out.print(Heap[i] + ",");
+            System.out.print(Heap[i] +',');
         }
         System.out.print(']');
     }
@@ -138,6 +139,18 @@ public class MinHeap {
         return popped;
     }
 
+    public int getMinValue(){
+        return Heap[FRONT];
+
+    }
+
+    // Function to replace the Minimum Value in the heap with a new value
+    public void replaceMinValue(int newValue){
+        Heap[FRONT] = newValue;
+        minHeapify(FRONT);
+
+    }
+
 
 
     //create a head a specified size with members between a max and min value
@@ -154,10 +167,10 @@ public class MinHeap {
 
     public int[] getHeap(){
 
-        // Get the slice of the Array
+        // return elements in the heap array excluding index zero since the head of the heap is at index one
         int[] heapElements = Arrays
                 .copyOfRange(
-                        Heap,1, maxsize+1);
+                        Heap,FRONT, maxsize+1);
 
         return heapElements;
     }
