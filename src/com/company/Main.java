@@ -15,11 +15,12 @@ public class Main {
 
         int elements_per_heap = n / k;
 
-
         LinkedList llist = new LinkedList();
         for (int n_heaps = 1; n_heaps <= k; n_heaps++) {
+
             int heapElement[] = new int[0];
             llist.add(new MinHeap(elements_per_heap, max_value, min_value,heapElement));
+
         }
 
 

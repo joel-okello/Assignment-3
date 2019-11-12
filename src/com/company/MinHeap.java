@@ -180,8 +180,12 @@ public class MinHeap {
     public int[] generateRandomHeap(int size, int max, int min)
     {
         int[] heap = new int[size];
+
+        // define the range
+        int range = max - min + 1;
+
         for(int i = 0 ; i < size ; i++){
-            heap[i] = (int)(Math.random() * ((max - min) + 1)) + min;
+            heap[i] = (int)(Math.random() * range) + min;
         }
 
         return  heap;
