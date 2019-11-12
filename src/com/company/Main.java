@@ -8,8 +8,8 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-        int n = 12;
-        int k = 3;
+        int n = 20;
+        int k = 4;
         int max_value = n;
         int min_value = 1;
 
@@ -25,8 +25,14 @@ public class Main {
 
         for (int i = 0; i < llist.size(); i++) {
             MinHeap currentHeap = (MinHeap) llist.get(i);
+            System.out.println(" Heap before removing any element from the heap");
+            printContentsOfAHeap(currentHeap);
+            System.out.println(" Heap after removing the minimum element from the heap");
+            currentHeap.removeMinValue();
             printContentsOfAHeap(currentHeap);
         }
+
+
 
 
 
