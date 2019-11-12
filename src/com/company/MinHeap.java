@@ -16,11 +16,11 @@ public class MinHeap {
     //constructor for MinHeap class create a minheap object
     public MinHeap(int no_of_elements, int max, int min)
     {
-        int[] randonArray = generateRandomHeap( no_of_elements,  max, min);
+        int[] randomArray = generateRandomHeap( no_of_elements,  max, min);
         this.Heap = new int[no_of_elements+1];
         this.maxsize = no_of_elements;
         for (int i = 0; i< no_of_elements; i++ ){
-            insert(randonArray[i]);
+            insert(randomArray[i]);
         }
 
     }
