@@ -33,6 +33,7 @@ public class MinHeap {
     // at pos
     private int parent(int pos)
     {
+
         return pos / 2;
     }
 
@@ -40,6 +41,7 @@ public class MinHeap {
     // left child for the node currently at pos
     private int leftChild(int pos)
     {
+
         return (2 * pos);
     }
 
@@ -48,6 +50,7 @@ public class MinHeap {
     // at pos
     private int rightChild(int pos)
     {
+
         return (2 * pos) + 1;
     }
 
@@ -55,6 +58,7 @@ public class MinHeap {
     // node is a leaf node
     private boolean isLeaf(int pos)
     {
+
         return pos >= (size / 2) && pos <= size;
     }
 
