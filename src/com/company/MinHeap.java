@@ -2,7 +2,6 @@ package com.company;
 
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 // Java implementation of Min Heap
 public class MinHeap {
@@ -59,12 +58,12 @@ public class MinHeap {
     }
 
     // Function to swap two nodes of the heap
-    private void swap(int fpos, int spos)
+    private void swap(int firstpos, int secondpos)
     {
         int tmp;
-        tmp = Heap[fpos];
-        Heap[fpos] = Heap[spos];
-        Heap[spos] = tmp;
+        tmp = Heap[firstpos];
+        Heap[firstpos] = Heap[secondpos];
+        Heap[secondpos] = tmp;
     }
 
     // Function to heapify the node at pos
@@ -110,16 +109,6 @@ public class MinHeap {
         }
     }
 
-    // Function to print the contents of the heap
-    public void print()
-    {
-        System.out.print('[');
-        for (int i = 0; i <= size ; i++) {
-            System.out.print(Heap[i] +',');
-        }
-        System.out.print(']');
-    }
-
     // Function to build the min heap using
     // the minHeapify
     public void minHeap()
@@ -127,16 +116,6 @@ public class MinHeap {
         for (int pos = (size / 2); pos >= 1; pos--) {
             minHeapify(pos);
         }
-    }
-
-    // Function to remove and return the minimum
-    // element from the heap
-    public int remove()
-    {
-        int popped = Heap[FRONT];
-        Heap[FRONT] = Heap[size--];
-        minHeapify(FRONT);
-        return popped;
     }
 
     public int getMinValue(){
@@ -149,6 +128,21 @@ public class MinHeap {
         Heap[FRONT] = newValue;
         minHeapify(FRONT);
 
+    }
+
+    // Function to remove and return the minimum element from the heap
+    public int removeMinValue(){
+        int minValue = Heap[FRONT];
+        int lastValueInHeap = Heap[size];
+        //move last value to root of heap
+        Heap[FRONT] = lastValueInHeap;
+
+        //reduce the size of the heap
+        size = size - 1;
+        //reorganise the heap
+        minHeapify(FRONT);
+
+        return minValue;
     }
 
 
@@ -170,10 +164,11 @@ public class MinHeap {
         // return elements in the heap array excluding index zero since the head of the heap is at index one
         int[] heapElements = Arrays
                 .copyOfRange(
-                        Heap,FRONT, maxsize+1);
+                        Heap,FRONT, size+1);
 
         return heapElements;
     }
+
 
 }
 
