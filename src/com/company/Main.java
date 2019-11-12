@@ -10,13 +10,15 @@ public class Main {
     public static void main(String[] args) {
         int n = 12;
         int k = 3;
+        int max_value = n;
+        int min_value = 1;
 
         int elements_per_heap = n / k;
 
 
         LinkedList llist = new LinkedList();
         for (int n_heaps = 1; n_heaps <= k; n_heaps++) {
-            llist.add(new MinHeap(elements_per_heap, n, 1));
+            llist.add(new MinHeap(elements_per_heap, max_value, min_value));
         }
         //an array to store minimums of all of the linked list heaps
         int[] minHeapValues = new int[llist.size()];
