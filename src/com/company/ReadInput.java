@@ -72,9 +72,6 @@ public class ReadInput {
         System.out.println("The Int array input from user is : ");
 
         System.out.println(Arrays.toString(n_integer_values));
-        heapValues = n_integer_values;
-
-        System.out.println(Arrays.toString(heapValues));
 
 
         return createArraysOfHeaps(n_integer_values);
@@ -84,7 +81,6 @@ public class ReadInput {
         int index = 0;
         int[][] arraysOfHeaps = new int[k][];
         for( int i = 0; i < heapValues.length; i += k ){
-            System.out.print(" i "+i + " i + k "+ (int)(i + k -1));
             arraysOfHeaps[index] = Arrays.copyOfRange( n_integer_values, i, (i+k));
             index++;
         }
