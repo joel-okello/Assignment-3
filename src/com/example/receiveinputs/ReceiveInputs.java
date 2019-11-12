@@ -31,10 +31,13 @@ public class ReceiveInputs {
         int chunk = k; // chunk size to divide
         for( int i = 0; i < n_integer_values.length; i += chunk ){
            String heap = Arrays.toString(Arrays.copyOfRange( n_integer_values, i, Math.min( n_integer_values.length, i+chunk )));
+//           sort(heap);
+
             System.out.print( heap );
         }
         System.out.println(" ");
 
 
     }
+
 }
