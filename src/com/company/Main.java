@@ -8,8 +8,8 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
-        int n = 20;
-        int k = 4;
+        int n = 6;
+        int k = 1;
         int max_value = n;
         int min_value = 1;
 
@@ -18,10 +18,9 @@ public class Main {
 
         LinkedList llist = new LinkedList();
         for (int n_heaps = 1; n_heaps <= k; n_heaps++) {
-            llist.add(new MinHeap(elements_per_heap, max_value, min_value));
+            int heapElement[] = new int[0];
+            llist.add(new MinHeap(elements_per_heap, max_value, min_value,heapElement));
         }
-
-        System.out.println("Before removing any element ");
 
 
         for (int i = 0; i < llist.size(); i++) {
@@ -32,18 +31,18 @@ public class Main {
 
 
 
-        int removedItems = 0;
-        while(removedItems<4){
-            System.out.println(" After removing "+(int)(removedItems+1) +" element");
-            removedItems++;
-            RemoveSmallestItem(llist);
-
-            for (int i = 0; i < llist.size(); i++) {
-                MinHeap currentHeap = (MinHeap) llist.get(i);
-
-                printContentsOfAHeap(currentHeap);
-            }
-        }
+//        int removedItems = 0;
+//        while(removedItems<5){
+//            System.out.println(" After removing "+(int)(removedItems+1) +" element");
+//            removedItems++;
+//            RemoveSmallestItem(llist);
+//
+//            for (int i = 0; i < llist.size(); i++) {
+//                MinHeap currentHeap = (MinHeap) llist.get(i);
+//
+//                printContentsOfAHeap(currentHeap);
+//            }
+//        }
 
 
 
