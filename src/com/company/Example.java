@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class Example {
-    public  int[] Heap = {0,4,3,2,11} ;
+    public  int[] Heap = {0,10, 3, 4, 10} ;
     public  int size = 4;
     public  int FRONT = 1;
     public  int maxsize = 4;
@@ -25,6 +25,7 @@ public class Example {
 
         example.minHeapify(1);
         System.out.println("  Heaps from users input ");
+        example.print();
 
 
 
@@ -35,7 +36,6 @@ public class Example {
     // Function to heapify the node at pos
     private void minHeapify(int pos)
     {
-        System.out.println("  Call to min heapify ");
         // If the node is a non-leaf node and greater
         // than any of its child
         if (!isLeaf(pos) ) {
@@ -44,7 +44,7 @@ public class Example {
             System.out.println(" Heap[pos] > Heap[leftChild(pos)] " + (Heap[pos] > Heap[leftChild(pos)]));
 
             if (Heap[pos] > Heap[leftChild(pos)]
-                    || ((rightChild(pos) <= size) && Heap[pos] > Heap[rightChild(pos)])) {
+                    || (rightChildExists(pos) && Heap[pos] > Heap[rightChild(pos)])) {
                 System.out.println("  Children are less than the parent " +pos);
 
 
@@ -64,7 +64,7 @@ public class Example {
                 }
 
                 // if current pos node is greater than its left child swap it with its left child
-                if (rightChildExists(pos) && Heap[rightChild(pos)] <= Heap[leftChild(pos)]) {
+                else if (rightChildExists(pos) && !(Heap[rightChild(pos)] > Heap[leftChild(pos)])) {
                     if(nodeIsPartOfCurrentHeap(rightChild(pos))) {
                         swap(pos, rightChild(pos));
                         System.out.print(" Swapped top "+pos +"and the right child"+rightChild(pos));
@@ -75,7 +75,7 @@ public class Example {
 
                 }
 
-                if(!rightChildExists(pos) && nodeIsPartOfCurrentHeap(leftChild(pos))){
+                else if(!rightChildExists(pos) && nodeIsPartOfCurrentHeap(leftChild(pos))){
                     swap(pos, leftChild(pos));
                     System.out.print(" Swapped top "+pos +"and the left child "+leftChild(pos));
                     print();

@@ -83,18 +83,20 @@ public class MinHeap {
                     || ((rightChild(pos) <= size) && Heap[pos] > Heap[rightChild(pos)])) {
 
                 // if current pos node is greater than its left child swap it with its left child
+                // if current pos node is greater than its left child swap it with its left child
                 if (rightChildExists(pos) && Heap[rightChild(pos)] > Heap[leftChild(pos)]) {
                     if(nodeIsPartOfCurrentHeap(leftChild(pos)))
                     {
-                        swap(pos, leftChild(pos));
+                        swap(pos, leftChild(pos));;
                         minHeapify(leftChild(pos));
+
                     }
 
 
                 }
 
                 // if current pos node is greater than its left child swap it with its left child
-                if (rightChildExists(pos) && Heap[rightChild(pos)] <= Heap[leftChild(pos)]) {
+                else if (rightChildExists(pos) && !(Heap[rightChild(pos)] > Heap[leftChild(pos)])) {
                     if(nodeIsPartOfCurrentHeap(rightChild(pos))) {
                         swap(pos, rightChild(pos));
                         minHeapify(rightChild(pos));
@@ -102,7 +104,7 @@ public class MinHeap {
 
                 }
 
-                if(!rightChildExists(pos) && nodeIsPartOfCurrentHeap(leftChild(pos))){
+                else if(!rightChildExists(pos) && nodeIsPartOfCurrentHeap(leftChild(pos))){
                     swap(pos, leftChild(pos));
                 }
             }

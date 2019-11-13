@@ -6,7 +6,7 @@ public class Radix {
 
     public ArrayList<MinHeap> sort(LinkedList min_heaps, int k) {
         ArrayList<MinHeap> a_list = new ArrayList<MinHeap>(min_heaps);
-        for (int place_value = k; place_value >= 0; place_value--) {
+        for (int place_value = (k-1); place_value >= 0; place_value--) {
             a_list = this.sortHeapsByPlaceValue(place_value, a_list);
         }
         return a_list;

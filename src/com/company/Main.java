@@ -1,6 +1,7 @@
 package com.company;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -30,7 +31,14 @@ public class Main {
         }
 
         Radix radix = new Radix();
-        System.out.println(radix.sort(llist, k));
+        System.out.println();
+
+        LinkedList sortedList = new LinkedList();
+        ArrayList sortedArrayList = radix.sort(llist, k);
+
+
+
+
 
         for (int i = 0; i < radix.sort(llist, k).size(); i++) {
             MinHeap currentHeap = (MinHeap) radix.sort(llist, k).get(i);

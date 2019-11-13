@@ -1,10 +1,7 @@
 package com.company;
 
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class ReadInput {
@@ -37,18 +34,45 @@ public class ReadInput {
 
 
 
+        Radix radix = new Radix();
+        System.out.println();
+
+        System.out.print(" K is "+k + " n is "+n);
+
+        ArrayList sortedArrayList = radix.sort(llist, k);
+
+        LinkedList sortedList = new LinkedList();
+
+        for(int counter = 0; counter < sortedArrayList.size(); counter++){
+            sortedList.add(sortedArrayList.get(counter));
+        }
+
+
+        System.out.print(" After sorting linked list ");
+
+        for (int i = 0; i < sortedList.size(); i++) {
+            MinHeap currentHeap = (MinHeap) sortedList.get(i);
+
+            printContentsOfAHeap(currentHeap);
+        }
+
+
+        System.out.print(" Removind items from the linked list ");
+
+
+
+
         int removedItems = 0;
         while(removedItems<n){
-            int itemRemoved = RemoveSmallestItem(llist);
-            System.out.println(" After removing item no: "+(int)(removedItems+1) +" which is "+itemRemoved+"");
+            System.out.println(" After removing "+(int)(removedItems+1) +" element");
+            removedItems++;
+            RemoveSmallestItem(sortedList);
 
-
-            for (int i = 0; i < llist.size(); i++) {
-                MinHeap currentHeap = (MinHeap) llist.get(i);
+            for (int i = 0; i < sortedList.size(); i++) {
+                MinHeap currentHeap = (MinHeap) sortedList.get(i);
 
                 printContentsOfAHeap(currentHeap);
             }
-            removedItems++;
         }
 
 
@@ -120,7 +144,7 @@ public class ReadInput {
 
     public static  int[][] createArraysOfHeaps(int[] n_integer_values){
         int index = 0;
-        int[][] arraysOfHeaps = new int[k][];
+        int[][] arraysOfHeaps = new int[k+1][];
         for( int i = 0; i < heapValues.length; i += k ){
             arraysOfHeaps[index] = Arrays.copyOfRange( n_integer_values, i, (i+k));
             index++;
