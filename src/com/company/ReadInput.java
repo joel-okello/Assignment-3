@@ -86,15 +86,16 @@ public class ReadInput {
                         System.out.println("That's not an integer, enter that value again!");
                         input.next(); // this is important!
                     }
-                    int userInput = input.nextInt();
+                    int userInput =  input.nextInt();
 
-                    if ( userInput <= 0 || userInput > n) {
+                    while ( userInput <= 0 || userInput > n) {
                         System.out.println("Invalid:: The integer value must be in range of 1 to " + n);
                         System.out.println("Enter the value next value again to continue..");
                         input.next(); // this is important!
-                    }else {
-                        n_integer_values[i] = userInput;
+                        userInput = input.nextInt();
                     }
+                        n_integer_values[i] = userInput;
+
 
 
                 }
