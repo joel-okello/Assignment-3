@@ -59,7 +59,6 @@ public class MinHeap {
     private boolean isLeaf(int pos)
     {
         int posLeftChild = leftChild(pos);
-        System.out.print(" is leaf node "+ (posLeftChild > size) + " posLeftChild "+ posLeftChild + " pos " + pos);
         return posLeftChild > size ;
     }
 
@@ -75,17 +74,14 @@ public class MinHeap {
     // Function to heapify the node at pos
     private void minHeapify(int pos)
     {
-
-
         // If the node is a non-leaf node and greater
         // than any of its child
         if (!isLeaf(pos) ) {
             if (Heap[pos] > Heap[leftChild(pos)]
-                    || Heap[pos] > Heap[rightChild(pos)]) {
-
+                    || ((rightChild(pos) <= size) && Heap[pos] > Heap[rightChild(pos)])) {
 
                 // if current pos node is greater than its left child swap it with its left child
-                if (Heap[rightChild(pos)] > Heap[leftChild(pos)]) {
+                if (rightChildExists(pos) && Heap[rightChild(pos)] > Heap[leftChild(pos)]) {
                     if(nodeIsPartOfCurrentHeap(leftChild(pos)))
                     {
                         swap(pos, leftChild(pos));
@@ -96,15 +92,25 @@ public class MinHeap {
                 }
 
                 // if current pos node is greater than its left child swap it with its left child
-                else {
+                if (rightChildExists(pos) && Heap[rightChild(pos)] <= Heap[leftChild(pos)]) {
                     if(nodeIsPartOfCurrentHeap(rightChild(pos))) {
                         swap(pos, rightChild(pos));
                         minHeapify(rightChild(pos));
                     }
 
                 }
+
+                if(!rightChildExists(pos) && nodeIsPartOfCurrentHeap(leftChild(pos))){
+                    swap(pos, leftChild(pos));
+                }
             }
         }
+
+
+    }
+
+    private  boolean rightChildExists(int pos){
+        return  rightChild(pos) <= size;
     }
 
 
@@ -158,7 +164,6 @@ public class MinHeap {
 
     // Function to remove and return the minimum element from the heap
     public int removeMinValue(){
-
         int minValue = Heap[FRONT];
         int indexOfLastElement = size;
         int indexOfFirstElement = FRONT;

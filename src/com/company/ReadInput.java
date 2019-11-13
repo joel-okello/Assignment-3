@@ -37,18 +37,19 @@ public class ReadInput {
 
 
 
-//        int removedItems = 0;
-//        while(removedItems<n){
-//            System.out.println(" After removing "+(int)(removedItems+1) +" element");
-//            RemoveSmallestItem(llist);
-//
-//            for (int i = 0; i < llist.size(); i++) {
-//                MinHeap currentHeap = (MinHeap) llist.get(i);
-//
-//                printContentsOfAHeap(currentHeap);
-//            }
-//            removedItems++;
-//        }
+        int removedItems = 0;
+        while(removedItems<n){
+            int itemRemoved = RemoveSmallestItem(llist);
+            System.out.println(" After removing item no: "+(int)(removedItems+1) +" which is "+itemRemoved+"");
+
+
+            for (int i = 0; i < llist.size(); i++) {
+                MinHeap currentHeap = (MinHeap) llist.get(i);
+
+                printContentsOfAHeap(currentHeap);
+            }
+            removedItems++;
+        }
 
 
 
@@ -109,24 +110,27 @@ public class ReadInput {
 
     }
 
-//    public static void RemoveSmallestItem(LinkedList lList){
-//        for(int cur_index=0; cur_index< lList.size(); cur_index++){
-//            MinHeap currentHeap = (MinHeap) lList.get(cur_index);
-//            if(nextHeapHasElements(cur_index,lList)){
-//                MinHeap nextHeap = (MinHeap) lList.get(cur_index+1);
-//                int nextHeapsMinValue = nextHeap.getMinValue();
-//                currentHeap.replaceMinValue(nextHeapsMinValue);
-//            }
-//            else{
-//                currentHeap.removeMinValue();
-//                int heapsSize = currentHeap.getSize();
-//                if(heapsSize==0){
-//                    lList.remove(cur_index);
-//                }
-//            }
-//        }
-//
-//    }
+    public static int RemoveSmallestItem(LinkedList lList){
+        MinHeap firstHeap = (MinHeap)lList.get(0);
+        int ItemRemoved = firstHeap.getMinValue();
+        for(int cur_index=0; cur_index< lList.size(); cur_index++){
+            MinHeap currentHeap = (MinHeap) lList.get(cur_index);
+            if(nextHeapHasElements(cur_index,lList)){
+                MinHeap nextHeap = (MinHeap) lList.get(cur_index+1);
+                int nextHeapsMinValue = nextHeap.getMinValue();
+                currentHeap.replaceMinValue(nextHeapsMinValue);
+            }
+            else{
+                currentHeap.removeMinValue();
+                int heapsSize = currentHeap.getSize();
+                if(heapsSize==0){
+                    lList.remove(cur_index);
+                }
+            }
+        }
+
+        return ItemRemoved;
+    }
 
 
 
