@@ -1,16 +1,21 @@
 package com.company;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        int n = 6;
-        int k = 1;
+
+        Scanner input = new Scanner( System.in );
+        System.out.println( "Enter value of n" );
+        int n = input.nextInt();
+
+
+        System.out.println( "Enter value of k" );
+        int k = input.nextInt();
+//        int k = 100;
+
         int max_value = n;
         int min_value = 1;
 
