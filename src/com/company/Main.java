@@ -32,18 +32,18 @@ public class Main {
 
 
 
-//        int removedItems = 0;
-//        while(removedItems<5){
-//            System.out.println(" After removing "+(int)(removedItems+1) +" element");
-//            removedItems++;
-//            RemoveSmallestItem(llist);
-//
-//            for (int i = 0; i < llist.size(); i++) {
-//                MinHeap currentHeap = (MinHeap) llist.get(i);
-//
-//                printContentsOfAHeap(currentHeap);
-//            }
-//        }
+        int removedItems = 0;
+        while(removedItems<5){
+            System.out.println(" After removing "+(int)(removedItems+1) +" element");
+            removedItems++;
+            RemoveSmallestItem(llist);
+
+            for (int i = 0; i < llist.size(); i++) {
+                MinHeap currentHeap = (MinHeap) llist.get(i);
+
+                printContentsOfAHeap(currentHeap);
+            }
+        }
 
 
 
@@ -57,7 +57,7 @@ public class Main {
         //need to arrange the linked list and perform replacements
 
         //an array to store minimums of all of the linked list heaps
-        int[] minHeapValues = new int[llist.size()];
+//        int[] minHeapValues = new int[llist.size()];
 
 //        for (int i = 0; i < llist.size(); i++) {
 //            MinHeap currentHeap = (MinHeap) llist.get(i);

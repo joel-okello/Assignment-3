@@ -19,6 +19,9 @@ public class ReadInput {
 
         System.out.println(" Finished reading input from the user");
 
+        System.out.println(" ");
+        System.out.println("  Heaps from users input ");
+
         LinkedList llist = new LinkedList();
         for (int n_heaps = 1; n_heaps <= n/k; n_heaps++) {
             int heapElements[] = userHeaps[n_heaps-1];
@@ -34,18 +37,19 @@ public class ReadInput {
 
 
 
-//        int removedItems = 0;
-//        while(removedItems<5){
-//            System.out.println(" After removing "+(int)(removedItems+1) +" element");
-//            removedItems++;
-//            RemoveSmallestItem(llist);
-//
-//            for (int i = 0; i < llist.size(); i++) {
-//                MinHeap currentHeap = (MinHeap) llist.get(i);
-//
-//                printContentsOfAHeap(currentHeap);
-//            }
-//        }
+        int removedItems = 0;
+        while(removedItems<n){
+            int itemRemoved = RemoveSmallestItem(llist);
+            System.out.println(" After removing item no: "+(int)(removedItems+1) +" which is "+itemRemoved+"");
+
+
+            for (int i = 0; i < llist.size(); i++) {
+                MinHeap currentHeap = (MinHeap) llist.get(i);
+
+                printContentsOfAHeap(currentHeap);
+            }
+            removedItems++;
+        }
 
 
 
@@ -142,7 +146,9 @@ public class ReadInput {
 
     }
 
-    public static void RemoveSmallestItem(LinkedList lList){
+    public static int RemoveSmallestItem(LinkedList lList){
+        MinHeap firstHeap = (MinHeap)lList.get(0);
+        int ItemRemoved = firstHeap.getMinValue();
         for(int cur_index=0; cur_index< lList.size(); cur_index++){
             MinHeap currentHeap = (MinHeap) lList.get(cur_index);
             if(nextHeapHasElements(cur_index,lList)){
@@ -152,9 +158,14 @@ public class ReadInput {
             }
             else{
                 currentHeap.removeMinValue();
+                int heapsSize = currentHeap.getSize();
+                if(heapsSize==0){
+                    lList.remove(cur_index);
+                }
             }
         }
 
+        return ItemRemoved;
     }
 
 
