@@ -14,45 +14,12 @@ public class ReadInput {
 
         int userHeaps[][] = readValuesFromUser();
 
-
-        LinkedList llist = new LinkedList();
-        for (int n_heaps = 1; n_heaps <= n/k; n_heaps++) {
-            int heapElements[] = userHeaps[n_heaps-1];
-            llist.add(new MinHeap(k, n, 1,heapElements));
-        }
+        LinkedList llist = createLinkedListOfHeapifiedHeaps(userHeaps);
 
 
+        LinkedList sortedList = sortUsingRadixSort(llist);
 
-
-        Radix radix = new Radix();
-
-        ArrayList sortedArrayList = radix.sort(llist, k);
-
-        LinkedList sortedList = new LinkedList();
-
-        for(int counter = 0; counter < sortedArrayList.size(); counter++){
-            sortedList.add(sortedArrayList.get(counter));
-        }
-
-
-
-
-        int removedItems = 0;
-
-        System.out.println("");
-        System.out.println("*************** Output ***************");
-        System.out.println("");
-        System.out.println("Removed Item  |  Remaining Data Structure");
-        System.out.println("              |");
-
-        while( removedItems < n ){
-            removedItems++;
-            int removedItem = RemoveSmallestItem(sortedList);
-            String white_space = whiteSpace(removedItem);
-            String data_structure = remainingDataStructure(sortedList);
-            System.out.println(removedItem+""+white_space+"| "+data_structure);
-        }
-
+        removeItemsAndPrintRemainingStructure(sortedList, n);
 
 
     }
@@ -134,16 +101,18 @@ public class ReadInput {
             System.out.println("Invalid Input..Please try again..");
 
         }
+        int elements_per_heap = k;
+        int number_of_heaps = n/elements_per_heap;
 
-        return createArraysOfHeaps(heapValues);
+        return createArraysOfHeapifiedHeaps(heapValues, number_of_heaps,elements_per_heap);
     }
 
-    public static  int[][] createArraysOfHeaps(int[] n_integer_values){
-        int index = 0;
-        int[][] arraysOfHeaps = new int[k+1][];
-        for( int i = 0; i < heapValues.length; i += k ){
-            arraysOfHeaps[index] = Arrays.copyOfRange( n_integer_values, i, (i+k));
-            index++;
+
+    public static  int[][] createArraysOfHeapifiedHeaps(int[] random_values,int number_of_heaps,int elements_per_heap){
+
+        int[][] arraysOfHeaps = new int[number_of_heaps][];
+        for( int heap_no = 1; heap_no <= number_of_heaps; heap_no ++ ){
+            arraysOfHeaps[heap_no-1] = Arrays.copyOfRange( random_values, (heap_no-1)*elements_per_heap, (heap_no)*elements_per_heap);
         }
 
         return  arraysOfHeaps;
@@ -202,6 +171,48 @@ public class ReadInput {
 
     public  static boolean notFirstHeap(int index){
         return index > 0;
+    }
+
+    public static  void removeItemsAndPrintRemainingStructure(LinkedList sortedList, int n_element_in_heap){
+        int removedItems = 0;
+
+        System.out.println("");
+        System.out.println("*************** Output ***************");
+        System.out.println("");
+        System.out.println("Removed Item  |  Remaining Data Structure");
+        System.out.println("              |");
+
+        while( removedItems < n_element_in_heap ){
+            removedItems++;
+            int removedItem = RemoveSmallestItem(sortedList);
+            String white_space = whiteSpace(removedItem);
+            String data_structure = remainingDataStructure(sortedList);
+            System.out.println(removedItem+""+white_space+"| "+data_structure);
+        }
+    }
+
+    public static LinkedList sortUsingRadixSort(LinkedList llist){
+        Radix radix = new Radix();
+
+        ArrayList sortedArrayList = radix.sort(llist, k);
+
+        LinkedList sortedList = new LinkedList();
+
+        for(int counter = 0; counter < sortedArrayList.size(); counter++){
+            sortedList.add(sortedArrayList.get(counter));
+        }
+
+        return  sortedList;
+    }
+
+    public  static LinkedList createLinkedListOfHeapifiedHeaps(int[][] userHeaps){
+        LinkedList llist = new LinkedList();
+        for (int n_heaps = 1; n_heaps <= n/k; n_heaps++) {
+            int heapElements[] = userHeaps[n_heaps-1];
+            llist.add(new MinHeap(k, n, 1,heapElements));
+        }
+
+        return llist;
     }
 
 }

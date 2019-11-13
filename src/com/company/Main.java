@@ -8,7 +8,7 @@ import static com.company.ReadInput.RemoveSmallestItem;
 public class Main {
 
     public static void main(String[] args) {
-        
+
         int max = 1000;
         int min = 1;
         int n = 10000;
