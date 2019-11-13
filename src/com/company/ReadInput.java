@@ -38,14 +38,41 @@ public class ReadInput {
 
 
         int removedItems = 0;
-        while(removedItems<n){
+
+        System.out.println("");
+        System.out.println("*************** Output ***************");
+        System.out.println("");
+        System.out.println("Removed Item  |  Remaining Data Structure");
+        System.out.println("              |");
+
+        while( removedItems < n ){
             removedItems++;
             int removedItem = RemoveSmallestItem(sortedList);
-            System.out.println(removedItem);
+            String white_space = whiteSpace(removedItem);
+            String data_structure = remainingDataStructure(sortedList);
+            System.out.println(removedItem+""+white_space+"| "+data_structure);
         }
 
 
 
+    }
+
+    public static String remainingDataStructure(LinkedList sortedList){
+        String data_structure = "";
+        for(int i=0; i < sortedList.size(); i++){
+            data_structure += Arrays.toString( ((MinHeap)sortedList.get(i)).getHeap());
+        }
+        return data_structure;
+    }
+
+    public static String whiteSpace(int removed_number){
+        int length = String.valueOf(removed_number).length();
+        int spaces = 14 - length;
+        String white_space = "";
+        for (int i=0; i < spaces; i++ ){
+            white_space+= " ";
+        }
+        return white_space;
     }
 
     public  static int[][] readValuesFromUser(){

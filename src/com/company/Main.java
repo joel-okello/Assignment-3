@@ -1,17 +1,14 @@
 package com.company;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 import static com.company.ReadInput.RemoveSmallestItem;
 
 public class Main {
 
     public static void main(String[] args) {
-
+        
         int max = 1000;
         int min = 1;
         int n = 10000;

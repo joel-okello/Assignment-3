@@ -5,11 +5,11 @@ import java.util.*;
 public class Radix {
 
     public ArrayList<MinHeap> sort(LinkedList min_heaps, int k) {
-        ArrayList<MinHeap> a_list = new ArrayList<MinHeap>(min_heaps);
+        ArrayList<MinHeap> a_list = new ArrayList<MinHeap>(min_heaps); //convert linked list of heaps to Array list of heaps
         for (int place_value = (k-1); place_value >= 0; place_value--) {
-            a_list = this.sortHeapsByPlaceValue(place_value, a_list);
+            a_list = this.sortHeapsByPlaceValue(place_value, a_list); //sort heaps based on the position of a digit in each heap
         }
-        return a_list;
+        return a_list; //sorted array list is returned
     }
 
 
