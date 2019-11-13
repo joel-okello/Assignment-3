@@ -22,12 +22,18 @@ public class Main {
         }
 
 
-
         for (int i = 0; i < llist.size(); i++) {
             MinHeap currentHeap = (MinHeap) llist.get(i);
             printContentsOfAHeap(currentHeap);
         }
 
+        Radix radix = new Radix();
+        System.out.println(radix.sort(llist, k));
+
+        for (int i = 0; i < radix.sort(llist, k).size(); i++) {
+            MinHeap currentHeap = (MinHeap) radix.sort(llist, k).get(i);
+            printContentsOfAHeap(currentHeap);
+        }
 
 
         //need to arrange the linked list and perform replacements
@@ -53,6 +59,7 @@ public class Main {
 
 
     }
+
 
     public  static  void printContentsOfAHeap(MinHeap currentHeap){
         System.out.println(Arrays.toString(currentHeap.getHeap()));
