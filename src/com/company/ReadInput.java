@@ -8,6 +8,8 @@ public class ReadInput {
     public static int n;
     public static int k;
     public static int[] heapValues;
+    public static  int removal_swaps = 0;
+    public  static int construction_swaps = 0;
 
 
     public static void main(String[] args) {
@@ -16,10 +18,17 @@ public class ReadInput {
 
         LinkedList llist = createLinkedListOfHeapifiedHeaps(userHeaps);
 
+        updateNumberOfSwapsInConstruction(llist);
+
 
         LinkedList sortedList = sortUsingRadixSort(llist);
 
+
+
         removeItemsAndPrintRemainingStructure(sortedList, n);
+
+        System.out.println(" N swaps construction = "+ construction_swaps + " N swaps removal "+removal_swaps);
+
 
 
     }
@@ -30,6 +39,15 @@ public class ReadInput {
             data_structure += Arrays.toString( ((MinHeap)sortedList.get(i)).getHeap());
         }
         return data_structure;
+    }
+
+    public static void updateNumberOfSwapsInConstruction(LinkedList linkedList){
+
+        for(int index = 0; index < linkedList.size(); index++){
+            MinHeap curentHeap = (MinHeap)linkedList.get(index);
+            construction_swaps +=  curentHeap.n_swaps_construction;
+        }
+
     }
 
     public static String whiteSpace(int removed_number){
@@ -138,6 +156,7 @@ public class ReadInput {
 
     public static int RemoveSmallestItem(LinkedList lList){
         MinHeap firstHeap = (MinHeap)lList.get(0);
+
         int ItemRemoved = firstHeap.getMinValue();
         for(int cur_index=0; cur_index< lList.size(); cur_index++){
             MinHeap currentHeap = (MinHeap) lList.get(cur_index);
@@ -150,6 +169,7 @@ public class ReadInput {
                 currentHeap.removeMinValue();
                 int heapsSize = currentHeap.getSize();
                 if(heapsSize==0){
+                    removal_swaps+=currentHeap.n_swaps_remove;
                     lList.remove(cur_index);
                 }
             }

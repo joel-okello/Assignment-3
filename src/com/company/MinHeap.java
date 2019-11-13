@@ -8,6 +8,8 @@ public class MinHeap {
     private int[] Heap;
     private int size;
     private int maxsize;
+    public int n_swaps_remove = 0;
+    public int n_swaps_construction = 0;
 
     private static final int FRONT = 1;
 
@@ -65,8 +67,13 @@ public class MinHeap {
     }
 
     // Function to swap two nodes of the heap
-    private void swap(int firstpos, int secondpos)
+    private void swap(int firstpos, int secondpos, String action)
     {
+        if (action == "remove") {
+            n_swaps_remove++;
+        } else if((action == "insert")) {
+            n_swaps_construction++;
+        }
         int tmp;
         tmp = Heap[firstpos];
         Heap[firstpos] = Heap[secondpos];
@@ -74,7 +81,7 @@ public class MinHeap {
     }
 
     // Function to heapify the node at pos
-    private void minHeapify(int pos)
+    private void minHeapify(int pos,String action)
     {
         // If the node is a non-leaf node and greater
         // than any of its child
@@ -87,8 +94,8 @@ public class MinHeap {
                 if (rightChildExists(pos) && Heap[rightChild(pos)] > Heap[leftChild(pos)]) {
                     if(nodeIsPartOfCurrentHeap(leftChild(pos)))
                     {
-                        swap(pos, leftChild(pos));;
-                        minHeapify(leftChild(pos));
+                        swap(pos, leftChild(pos),action);;
+                        minHeapify(leftChild(pos),action);
 
                     }
 
@@ -98,14 +105,14 @@ public class MinHeap {
                 // if current pos node is greater than its left child swap it with its left child
                 else if (rightChildExists(pos) && !(Heap[rightChild(pos)] > Heap[leftChild(pos)])) {
                     if(nodeIsPartOfCurrentHeap(rightChild(pos))) {
-                        swap(pos, rightChild(pos));
-                        minHeapify(rightChild(pos));
+                        swap(pos, rightChild(pos),action);
+                        minHeapify(rightChild(pos),action);
                     }
 
                 }
 
                 else if(!rightChildExists(pos) && nodeIsPartOfCurrentHeap(leftChild(pos))){
-                    swap(pos, leftChild(pos));
+                    swap(pos, leftChild(pos),action);
                 }
             }
         }
@@ -121,6 +128,7 @@ public class MinHeap {
     // Function to insert a node into the heap
     public void insert(int element)
     {
+        String action = "insert";
         if (size >= maxsize) {
             return;
         }
@@ -128,7 +136,7 @@ public class MinHeap {
         int current = size;
 
         while (Heap[current] < Heap[parent(current)]) {
-            swap(current, parent(current));
+            swap(current, parent(current), action);
             current = parent(current);
         }
     }
@@ -149,8 +157,9 @@ public class MinHeap {
     // the minHeapify
     public void minHeap()
     {
+        String action = "";
         for (int pos = (size / 2); pos >= 1; pos--) {
-            minHeapify(pos);
+            minHeapify(pos,action);
         }
     }
 
@@ -161,25 +170,27 @@ public class MinHeap {
 
     // Function to replace the Minimum Value in the heap with a new value
     public void replaceMinValue(int newValue){
+        String action = "remove";
         Heap[FRONT] = newValue;
-        minHeapify(FRONT);
+        minHeapify(FRONT, action);
 
     }
 
     // Function to remove and return the minimum element from the heap
     public int removeMinValue(){
+        String action = "remove";
         int minValue = Heap[FRONT];
         int indexOfLastElement = size;
         int indexOfFirstElement = FRONT;
         //move last value to root of heap and the root to the end of the heap
-        swap(indexOfFirstElement,indexOfLastElement);
+        swap(indexOfFirstElement,indexOfLastElement,action);
 
         //reduce the size of the heap
         size = size - 1;
 
 
         //reorganise the heap
-        minHeapify(FRONT);
+        minHeapify(FRONT,action);
 
         return minValue;
     }

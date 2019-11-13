@@ -3,9 +3,11 @@ package com.company;
 
 import java.util.*;
 
-import static com.company.ReadInput.RemoveSmallestItem;
 
 public class Main {
+
+    public static  int[] removal_swaps ;
+    public  static int[] construction_swaps;
 
     public static void main(String[] args) {
 
@@ -27,6 +29,9 @@ public class Main {
             int [] random_values = generateRandomArrayOfValues(n,  max, min);
             int number_of_heaps = n/values_for_k[i];
             int elements_per_heap = values_for_k[i];
+            removal_swaps[i] = 0;
+            construction_swaps[i] = 0;
+
             int n_items_in_linked_list = n;
 
 
@@ -35,9 +40,11 @@ public class Main {
 
             LinkedList llist = makeLinkedListOfHeaps(generated_heaps,number_of_heaps,n,elements_per_heap);
 
+            updateNumberOfSwapsInConstruction(llist,i);
+
             LinkedList sortedList = sortLinkedListUsingRadix( llist, elements_per_heap);
 
-            removeItemsFromLinkedList(sortedList,n_items_in_linked_list);
+            removeItemsFromLinkedList(sortedList, n_items_in_linked_list,i);
 
 
 
@@ -143,15 +150,48 @@ public class Main {
 
     }
 
-    public static void removeItemsFromLinkedList(LinkedList sortedList,int n_items_in_linked_list){
+    public static void removeItemsFromLinkedList(LinkedList sortedList,int n_items_in_linked_list,int linked_list_index){
 
         int removedItems = 0;
         while(removedItems<n_items_in_linked_list){
             removedItems++;
-            int removedItem = RemoveSmallestItem(sortedList);
+            int removedItem = RemoveSmallestItem(sortedList,linked_list_index);
 //                System.out.print(removedItem);
         }
 
+    }
+
+    public static void updateNumberOfSwapsInConstruction(LinkedList linkedList,int linked_list_index){
+
+        for(int index = 0; index < linkedList.size(); index++){
+            MinHeap curentHeap = (MinHeap)linkedList.get(index);
+            construction_swaps[linked_list_index] +=  curentHeap.n_swaps_construction;
+        }
+
+    }
+
+    public static int RemoveSmallestItem(LinkedList lList,int linked_list_index){
+        MinHeap firstHeap = (MinHeap)lList.get(0);
+
+        int ItemRemoved = firstHeap.getMinValue();
+        for(int cur_index=0; cur_index< lList.size(); cur_index++){
+            MinHeap currentHeap = (MinHeap) lList.get(cur_index);
+            if(nextHeapHasElements(cur_index,lList)){
+                MinHeap nextHeap = (MinHeap) lList.get(cur_index+1);
+                int nextHeapsMinValue = nextHeap.getMinValue();
+                currentHeap.replaceMinValue(nextHeapsMinValue);
+            }
+            else{
+                currentHeap.removeMinValue();
+                int heapsSize = currentHeap.getSize();
+                if(heapsSize==0){
+                    removal_swaps[linked_list_index]+=currentHeap.n_swaps_remove;
+                    lList.remove(cur_index);
+                }
+            }
+        }
+
+        return ItemRemoved;
     }
 
 }
