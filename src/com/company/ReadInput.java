@@ -2,7 +2,7 @@ package com.company;
 
 
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -52,29 +52,65 @@ public class ReadInput {
     }
 
     public  static int[][] readValuesFromUser(){
+
         Scanner input = new Scanner( System.in);
-        System.out.println("Enter value of n");
-        n  = input.nextInt();
 
-        System.out.println("Enter value of k");
-        k = input.nextInt();
+        try {
 
-        // create a int array to save user input
-        int[] n_integer_values = new int[n];
-        // loop over array to save user input
-        System.out.println("Please enter array elements");
-        for (int i = 0; i < n; i++) {
-            int userInput = input.nextInt();
-            n_integer_values[i] = userInput;
+            System.out.println("Enter value of n");
+            while (!input.hasNextInt()) {
+                System.out.println("That's not an integer, enter value of n again!");
+                input.next(); // this is important!
+            }
+            n  = input.nextInt();
+
+            System.out.println("Enter value of k");
+            while (!input.hasNextInt()) {
+                System.out.println("That's not an integer, enter value of k again!");
+                input.next(); // this is important!
+            }
+            k = input.nextInt();
+
+            if ( n % k == 0 ){
+                // create a int array to save user input
+                int[] n_integer_values = new int[n];
+
+                // loop over array to save user input
+                System.out.println("Enter set of integer values per line for the array elements");
+                for ( int i = 0; i < n; i++ ) {
+                    while (!input.hasNextInt()) {
+                        System.out.println("That's not an integer, enter that value again!");
+                        input.next(); // this is important!
+                    }
+                    int userInput = input.nextInt();
+
+                    if ( userInput <= 0 || userInput > n) {
+                        System.out.println("Invalid:: The integer value must be in range of 1 to " + n);
+                        System.out.println("Enter the value next value again to continue..");
+                        input.next(); // this is important!
+                    }else {
+                        n_integer_values[i] = userInput;
+                    }
+
+
+                }
+                heapValues = n_integer_values;
+
+                System.out.println("The set of Integer array input from user is : ");
+
+                System.out.println(Arrays.toString(n_integer_values));
+            }else {
+                System.out.println( n+" is not a mulitple of "+k);
+                System.out.println("Run the program again with valid values of n and k ");
+            }
+
         }
-        heapValues = n_integer_values;
+        catch ( InputMismatchException e ) {
+            System.out.println("Invalid Input..Please try again..");
 
-        System.out.println("The Int array input from user is : ");
+        }
 
-        System.out.println(Arrays.toString(n_integer_values));
-
-
-        return createArraysOfHeaps(n_integer_values);
+        return createArraysOfHeaps(heapValues);
     }
 
     public static  int[][] createArraysOfHeaps(int[] n_integer_values){
