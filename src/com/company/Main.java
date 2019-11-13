@@ -60,33 +60,6 @@ public class Main {
         }
 
 
-
-
-
-
-
-
-
-
-        //need to arrange the linked list and perform replacements
-
-        //an array to store minimums of all of the linked list heaps
-//        int[] minHeapValues = new int[llist.size()];
-
-//        for (int i = 0; i < llist.size(); i++) {
-//            MinHeap currentHeap = (MinHeap) llist.get(i);
-//            minHeapValues[i] = currentHeap.getMinValue();
-//            if(notFirstHeap(i)){
-//                currentHeap.replaceMinValue(minHeapValues[i-1]);
-//            }
-//            else{
-//
-//            }
-//
-//
-//            System.out.println(Arrays.toString(currentHeap.getHeap()));
-//        }
-
     }
 
     public static  boolean nextHeapHasElements(int heapIndex, LinkedList lList){

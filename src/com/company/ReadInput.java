@@ -14,10 +14,6 @@ public class ReadInput {
 
         int userHeaps[][] = readValuesFromUser();
 
-        System.out.println(" Finished reading input from the user");
-
-        System.out.println(" ");
-        System.out.println("  Heaps from users input ");
 
         LinkedList llist = new LinkedList();
         for (int n_heaps = 1; n_heaps <= n/k; n_heaps++) {
@@ -26,18 +22,9 @@ public class ReadInput {
         }
 
 
-        for (int i = 0; i < llist.size(); i++) {
-            MinHeap currentHeap = (MinHeap) llist.get(i);
-
-            printContentsOfAHeap(currentHeap);
-        }
-
 
 
         Radix radix = new Radix();
-        System.out.println();
-
-        System.out.print(" K is "+k + " n is "+n);
 
         ArrayList sortedArrayList = radix.sort(llist, k);
 
@@ -48,31 +35,13 @@ public class ReadInput {
         }
 
 
-        System.out.print(" After sorting linked list ");
-
-        for (int i = 0; i < sortedList.size(); i++) {
-            MinHeap currentHeap = (MinHeap) sortedList.get(i);
-
-            printContentsOfAHeap(currentHeap);
-        }
-
-
-        System.out.print(" Removind items from the linked list ");
-
-
 
 
         int removedItems = 0;
         while(removedItems<n){
-            System.out.println(" After removing "+(int)(removedItems+1) +" element");
             removedItems++;
-            RemoveSmallestItem(sortedList);
-
-            for (int i = 0; i < sortedList.size(); i++) {
-                MinHeap currentHeap = (MinHeap) sortedList.get(i);
-
-                printContentsOfAHeap(currentHeap);
-            }
+            int removedItem = RemoveSmallestItem(sortedList);
+            System.out.println(removedItem);
         }
 
 
