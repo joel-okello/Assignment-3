@@ -11,7 +11,7 @@ public class Utilities {
 
     }
 
-    public static int[] convertIntegers(List<Integer> integers)
+    public static int[] convertIntegersArray(List<Integer> integers)
     {
         int[] ret = new int[integers.size()];
         Iterator<Integer> iterator = integers.iterator();

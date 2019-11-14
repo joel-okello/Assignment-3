@@ -226,6 +226,9 @@ public class ReadFileInput {
                             if(current_int > n){
                                 throw new Exception(" value "+current_int + " is greater than n "+n);
                             }
+                            if(current_int < 1){
+                                throw new Exception(" value "+current_int + " is less than 1 "+n);
+                            }
                             input_values.add(current_int);
 
                         }
@@ -235,33 +238,49 @@ public class ReadFileInput {
                 }
 
             }
-            performValidationChecks();
+
             System.out.println(" there are : "+input_values.size() + " integer values");
 
-            heapValues = convertIntegers(input_values);
+
+            performValidationChecks(input_values, k, n);
+
+
+
+            heapValues = convertIntegersArray(input_values);
+
+            System.out.println("");
+
+            System.out.println("The set of Integer array input from file  is: ");
+
+            System.out.println(Arrays.toString(heapValues));
 
             success = true;
 
 
         } catch (FileNotFoundException e) {
             System.err.println("Oops! Check if file exists");
-            e.getMessage();
+            System.err.println(e.getMessage());
         } catch (IOException e) {
             System.err.println("Oops! Unable to read the file.");
-            e.getMessage();
+            System.err.println(e.getMessage());
         }
         catch (Exception ex){
-            System.err.println(" File contains none numeric charaters");
-            ex.getMessage();
+            System.err.println(ex.getMessage());
+            System.err.println(" Error occured reading file check contents");
+
         }
 
         return success;
     }
 
 
-    public static void  performValidationChecks() throws Exception {
-        if(n%k !=0){
-            throw new Exception(" n is not a multiple of k");
+    public static void  performValidationChecks(ArrayList input_values,int  k,int  n) throws Exception {
+        if(n % k !=0){
+            throw new Exception(" n  is not a multiple of k");
+        }
+
+        if(input_values.size() != n){
+            throw new Exception(" Integer values entered in file  are not equal to n : "+n);
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.*;
 import static com.company.Utilities.isLastElementOfList;
 
 
-public class ReadInput {
+public class ReadTerminalValues {
     public static int n;
     public static int k;
     public static int[] heapValues;
