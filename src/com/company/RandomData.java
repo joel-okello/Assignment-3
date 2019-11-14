@@ -6,7 +6,7 @@ import java.util.*;
 import static com.company.Utilities.isLastElementOfList;
 
 
-public class Main {
+public class RandomData {
 
     public static  int removal_swaps ;
     public  static int construction_swaps;
