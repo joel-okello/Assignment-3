@@ -3,6 +3,8 @@ package com.company;
 
 import java.util.*;
 
+import static com.company.Utilities.isLastElementOfList;
+
 
 public class ReadInput {
     public static int n;
@@ -27,7 +29,7 @@ public class ReadInput {
 
         removeItemsAndPrintRemainingStructure(sortedList, n);
 
-        System.out.println(" N swaps construction = "+ construction_swaps + " N swaps removal "+removal_swaps);
+//        System.out.println(" Number of swaps construction = "+ construction_swaps + " Number of swaps removal "+removal_swaps);
 
 
 
@@ -37,6 +39,9 @@ public class ReadInput {
         String data_structure = "";
         for(int i=0; i < sortedList.size(); i++){
             data_structure += Arrays.toString( ((MinHeap)sortedList.get(i)).getHeap());
+            if(!isLastElementOfList(i,sortedList.size())){
+                data_structure += " --> ";
+            }
         }
         return data_structure;
     }

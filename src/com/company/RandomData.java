@@ -3,11 +3,13 @@ package com.company;
 
 import java.util.*;
 
+import static com.company.Utilities.isLastElementOfList;
+
 
 public class Main {
 
-    public static  int[] removal_swaps ;
-    public  static int[] construction_swaps;
+    public static  int removal_swaps ;
+    public  static int construction_swaps;
 
     public static void main(String[] args) {
 
@@ -21,6 +23,7 @@ public class Main {
 
 
 
+
         for (int i = 0; i<values_for_k.length;i++) {
 
             long start_time = System.nanoTime();
@@ -29,31 +32,34 @@ public class Main {
             int [] random_values = generateRandomArrayOfValues(n,  max, min);
             int number_of_heaps = n/values_for_k[i];
             int elements_per_heap = values_for_k[i];
-            removal_swaps[i] = 0;
-            construction_swaps[i] = 0;
+            removal_swaps = 0;
+            construction_swaps = 0;
 
             int n_items_in_linked_list = n;
 
 
+            System.out.println();
+            System.out.println(" k = "+values_for_k[i]+" n = "+n);
 
             int generated_heaps[][] =  createArraysOfHeaps(random_values,number_of_heaps,elements_per_heap);
-
             LinkedList llist = makeLinkedListOfHeaps(generated_heaps,number_of_heaps,n,elements_per_heap);
 
-            updateNumberOfSwapsInConstruction(llist,i);
+            System.out.print(" Initial list ");
+            System.out.println(stringLinkedListStructure(llist));
 
             LinkedList sortedList = sortLinkedListUsingRadix( llist, elements_per_heap);
 
+            System.out.print(" Sorted list ");
+            System.out.println(stringLinkedListStructure(sortedList));
+
             removeItemsFromLinkedList(sortedList, n_items_in_linked_list,i);
 
-
-
-
             long stop_time = System.nanoTime();
-
             long elapsed_time =  stop_time - start_time;
 
-            System.out.println("K = "+values_for_k[i]+" Elapsed time is "+elapsed_time );
+            System.out.println(" Elapsed time is : "+elapsed_time);
+            System.out.println(" Total swaps on remove = "+removal_swaps+" Total swaps on construction = "+construction_swaps );
+            System.out.println();
 
         }
     }
@@ -161,14 +167,20 @@ public class Main {
 
     }
 
-    public static void updateNumberOfSwapsInConstruction(LinkedList linkedList,int linked_list_index){
-
-        for(int index = 0; index < linkedList.size(); index++){
-            MinHeap curentHeap = (MinHeap)linkedList.get(index);
-            construction_swaps[linked_list_index] +=  curentHeap.n_swaps_construction;
+    public static String stringLinkedListStructure(LinkedList linkedList){
+        String string_representation = "";
+        for(int i=0; i < linkedList.size(); i++){
+            string_representation += Arrays.toString( ((MinHeap)linkedList.get(i)).getHeap());
+            if(!isLastElementOfList(i,linkedList.size())){
+                string_representation += " --> ";
+            }
         }
-
+        return string_representation;
     }
+
+
+
+
 
     public static int RemoveSmallestItem(LinkedList lList,int linked_list_index){
         MinHeap firstHeap = (MinHeap)lList.get(0);
@@ -185,7 +197,8 @@ public class Main {
                 currentHeap.removeMinValue();
                 int heapsSize = currentHeap.getSize();
                 if(heapsSize==0){
-                    removal_swaps[linked_list_index]+=currentHeap.n_swaps_remove;
+                    removal_swaps+=currentHeap.n_swaps_remove;
+                    construction_swaps +=  currentHeap.n_swaps_construction;
                     lList.remove(cur_index);
                 }
             }
